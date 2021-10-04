@@ -1,0 +1,31 @@
+
+ <div *ngIf="producto.nombre == ''" class="card-columns">
+  <div class="card">
+    <img src="../../../assets/img/load.jpg" class="card-img-top" alt="" />
+  </div>
+ </div>
+
+
+ <div class="padre">
+
+  <div class="pictures hijo" *ngFor="let p of producto.archivos; let i = index">
+    <img id="pic +'i'" class="imgPictures" src="{{url+'/productos/GetImage/'+p.archivo}}"
+                                           (mouseover)="changeImage(p.archivo, url+'/productos/GetImage/'+p.archivo, i)" >
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12 picture " id="picture"  >
+      <img id="pic" src="{{url+'/productos/GetImage/'+firstPicture}}"
+                            (mousemove)="zoomIn($event)" 
+                            (mouseout)="zoomOut()"  >
+    </div>
+    <div class="col-md-5 col-sm-10 zoom " id="zoom" (mousemove)="zoomIn($event)"></div>
+  </div>
+ </div>
+  
+  <div class="mt-5">
+    <a [routerLink]="['/producto-list']" class="btn btn-primary" title="Cancelar y regresar">
+      Atras
+    </a>
+  </div>
+

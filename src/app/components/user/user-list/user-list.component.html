@@ -1,0 +1,118 @@
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+  
+        <h3 class="font-weight-bold mt-2 mb-2 ml-2">{{page_title}}</h3>
+  
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button type="button" class="btn btn-primary btn-icon-text float-right" [routerLink]="['/usuario-new']" title="Nuevo">
+                <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                Nuevo
+              </button>
+            </div>
+            
+          </div>
+        </div>
+  
+        <div class="card-body">
+          
+          <div *ngIf="!usuarios">
+            <img src="../../../../assets/img/load.jpg" class="rotate_03" id="myimage"  alt="" />
+          </div>
+          
+  
+          <div *ngIf="usuarios">
+            <!-- <div class="form-group row">
+              <div class="col-md-10">
+                <div class="input-group">
+                  <select class="form-control col-md-3" [(ngModel)]="campoBuscar" (change)="buscarPor()" >
+                    <option value="nombre">Nombre</option>
+                    <option value="descripcion">Descripcion</option>
+                  </select>
+                  <input type="text" id="articulo" name="articulo" [(ngModel)]="article.nombre"  class="form-control" autocomplete="off" placeholder="Texto a buscar"  >
+                  <button type="button" class="btn btn-info" (click)="searchArticle(article.nombre)" title="Buscar">
+                    <i class="ti-search"></i> 
+                  </button>
+                  <button type="button" class="btn btn-light" (click)="getArticle(1, this.cantidadRegistrosAMostrar)" title="Recargar">
+                    <i class="ti-reload fa-rotate-90" aria-hidden="true" ></i> 
+                  </button>
+                </div>
+              </div>
+            </div> -->
+  
+          
+          
+            <div class="table-responsive" >
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                      <th>Opciones</th>
+                      <th>Nombre</th>
+                      <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let usu of usuarios | paginate: {
+                                                    itemsPerPage: cantidadRegistrosAMostrar,
+                                                    currentPage: paginaActual,
+                                                    totalItems: cantidadTotalRegistros }">
+                    <td >
+   
+                      <!-- Button VIEW-->                 
+                      <button type="button" class="btn btn-outline-secondary  btn-fw btn-rounded btn-icon" [routerLink]="['/usuario-show',usu.id]" title="Ver">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                      </button>
+                      
+                      
+                      <!-- Button UPDATE-->                 
+                      <button type="button" class="btn btn-outline-warning btn-fw btn-rounded btn-icon" [routerLink]="['/usuario-update',usu.id]" title="Actualizar">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      </button>
+    
+                    </td>
+                    
+                    <td>{{usu.nombre}}</td>
+                    
+                    <td>
+                        <div *ngIf="usu.condicion == true">
+                            <span class="badge badge-success">Activo</span>
+                        </div>
+                        <div *ngIf="usu.condicion == false">
+                            <span class="badge badge-danger">Inactivo</span>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+    
+              <div class="form-group-row">
+                <div class="col-md-6 float-left">
+                  <pagination-controls responsive="true"
+                                        previousLabel="Ant"
+                                        nextLabel="Sig"
+                                        (pageChange)="pageChange($event)">
+                  </pagination-controls>
+                </div>
+      
+                <div class="col-md-2 float-right">
+                    <select (change)="onTableSizesChanges($event)" class="custom-select">
+                      <option *ngFor="let size of tableSizes" [ngValue]="size">
+                          {{size}}
+                      </option>
+                    </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  

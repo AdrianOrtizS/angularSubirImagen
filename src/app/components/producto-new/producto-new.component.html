@@ -1,0 +1,48 @@
+<div class="col-md-12 mt-4">
+
+    <h1>{{page_title}}</h1>
+    <p>Añade un nuevo producto </p>
+
+    <hr>
+    <form class="col-md-5 ml-0 pl-0" #productoNew="ngForm" (ngSubmit)="onSubmit(productoNew)">
+        
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="producto.nombre" required class="form-control" >
+            <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+                El nombre no es valido
+            </small>
+        </div>
+
+
+        <div class="form-group">
+            <h4 class="fw-light text-center text-lg-start mt-2 mb-1">Imagenes</h4>
+            <hr class="mt-2 mb-5">
+            
+            <div  *ngIf="producto.archivos && producto.nombre!=null" class="mt-2 mb-3 ml-5">
+                <div class="row text-center text-lg-start">
+                    <div *ngFor="let p of producto.archivos ; let ind=index">
+                        <img src="{{url + '/productos/GetImage/' + producto.archivos[ind].nombre}}" class="mediana">
+                    </div>
+                </div>
+            </div>
+
+            <angular-file-uploader
+                [config]="afuConfig"
+                [resetUpload]=resetvar
+                (ApiResponse)="imageUpload($event)">
+            </angular-file-uploader>  
+        </div>
+
+        <input type="submit" value="Guardar" class="btn btn-success" title="Guardar" [disabled]="productoNew.invalid"/>
+  
+        <a [routerLink]="['/producto-list']" class="btn btn-danger" title="Cancelar">
+            Cancelar
+        </a>
+
+
+      </form>
+
+    <br>
+</div>
+  

@@ -1,0 +1,47 @@
+<div class="col-md-12 mt-4">
+
+    <h1>{{page_title}}</h1>
+        <p>Añade un nuevo producto </p>
+    <hr>
+
+    <form class="col-md-10 ml-0 pl-0" #productoNew="ngForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="producto.nombre" required class="form-control" >
+            <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+                El nombre no es valido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-10">
+                    <input  type="file" (change)="capturarFile($event)" multiple="true">
+                    <div *ngIf="previsualizacion" class="mb-2">
+                        <div *ngFor="let prev of arrarPrevisualizacion" >
+                            <img [src]="prev" class="left m-1"  style="width: 120px; height: 80px;" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-10">
+                    <input type="submit" value="Guardar" class="btn btn-success mt-2" title="Guardar" [disabled]="productoNew.invalid" />
+                    
+                    <button class="btn btn-danger mt-2" (click)="reset">
+                        Cancelar
+                    </button>
+                    
+                    <!-- <a [routerLink]="['/producto-list']" class="btn btn-danger mt-2" title="Cancelar">
+                        Cancelar
+                    </a> -->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

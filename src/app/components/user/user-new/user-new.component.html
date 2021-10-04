@@ -1,0 +1,76 @@
+<div class="col-md-12 mt-4">
+
+    <h1>{{page_title}}</h1>
+    <p>Añade un nuevo usuario </p>
+
+    <hr>
+    <form class="col-md-5 ml-0 pl-0" #usuarioNew="ngForm"  (ngSubmit)="onSubmit(usuarioNew) ">
+        
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="usuario.nombre" required class="form-control" >
+            <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+                El nombre no es valido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" #email="ngModel" [(ngModel)]="usuario.email" required class="form-control" >
+            <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+                El email no es valido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="rol">Rol</label>
+            <select id="rol" name="rol" #rol="ngModel"  [(ngModel)]="usuario.idrol" class="form-control" required>
+                <option value="">-Seleccione rol-</option>
+                <option *ngFor="let rol of roles"  value="{{rol.id}}">
+                    {{rol.nombre}} 
+                </option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <h4 class="fw-light text-center text-lg-start mt-2 mb-1">Foto</h4>
+            <hr class="mt-2 mb-5">
+            
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-10">
+                        
+                        <input  type="file" style="display: none;" #selectFiles (change)="capturarFile($event)" multiple="true">
+                        
+                        <button (click)="selectFiles.click()">
+                            Seleccione foto
+                        </button>
+                        
+                        <div *ngIf="previsualizacion" class="mb-2">
+                            <div *ngFor="let prev of arrarPrevisualizacion" >
+                                <img [src]="prev" class="left m-1"  style="width: 120px; height: 80px;" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <input type="submit" value="Guardar" #guardar class="btn btn-success"  title="Guardar" [disabled]="usuarioNew.invalid"/>
+  
+        <!-- <a [routerLink]="['/usuario-list']"  class="btn btn-danger"  title="Cancelar">  Cancelar        </a> -->
+       
+        <button [routerLink]="['/usuario-list']" #cancelar class="btn btn-danger"  title="Cancelar">
+            Cancelar
+        </button>
+
+        <button class="btn btn-info" #limpiar >
+            Limpiar
+        </button>
+
+      </form>
+
+    <br>
+</div>
+  
